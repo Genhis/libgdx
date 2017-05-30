@@ -56,35 +56,35 @@ import com.badlogic.gdx.utils.Pool;
 /** An implementation of the {@link Input} interface hooking a LWJGL panel for input.
  * 
  * @author mzechner */
-final public class LwjglInput implements Input {
+public class LwjglInput implements Input {
 	static public float keyRepeatInitialTime = 0.4f;
 	static public float keyRepeatTime = 0.1f;
 
-	List<KeyEvent> keyEvents = new ArrayList<KeyEvent>();
-	List<TouchEvent> touchEvents = new ArrayList<TouchEvent>();
-	boolean mousePressed = false;
-	int mouseX, mouseY;
-	int deltaX, deltaY;
-	int pressedKeys = 0;
-	boolean keyJustPressed = false;
-	boolean[] justPressedKeys = new boolean[256];
-	boolean[] justPressedButtons = new boolean[5];
-	boolean justTouched = false;
-	IntSet pressedButtons = new IntSet();
-	InputProcessor processor;
-	char lastKeyCharPressed;
-	float keyRepeatTimer;
-	long currentEventTimeStamp;
-	float deltaTime;
-	long lastTime;
+	protected List<KeyEvent> keyEvents = new ArrayList<KeyEvent>();
+	protected List<TouchEvent> touchEvents = new ArrayList<TouchEvent>();
+	protected boolean mousePressed = false;
+	protected int mouseX, mouseY;
+	protected int deltaX, deltaY;
+	protected int pressedKeys = 0;
+	protected boolean keyJustPressed = false;
+	protected boolean[] justPressedKeys = new boolean[256];
+	protected boolean[] justPressedButtons = new boolean[5];
+	protected boolean justTouched = false;
+	protected IntSet pressedButtons = new IntSet();
+	protected InputProcessor processor;
+	protected char lastKeyCharPressed;
+	protected float keyRepeatTimer;
+	protected long currentEventTimeStamp;
+	protected float deltaTime;
+	protected long lastTime;
 
-	Pool<KeyEvent> usedKeyEvents = new Pool<KeyEvent>(16, 1000) {
+	protected Pool<KeyEvent> usedKeyEvents = new Pool<KeyEvent>(16, 1000) {
 		protected KeyEvent newObject () {
 			return new KeyEvent();
 		}
 	};
 
-	Pool<TouchEvent> usedTouchEvents = new Pool<TouchEvent>(16, 1000) {
+	protected Pool<TouchEvent> usedTouchEvents = new Pool<TouchEvent>(16, 1000) {
 		protected TouchEvent newObject () {
 			return new TouchEvent();
 		}
@@ -106,7 +106,7 @@ final public class LwjglInput implements Input {
 	public float getAccelerometerZ () {
 		return 0;
 	}
-	
+
 	public float getGyroscopeX () {
 		return 0;
 	}
@@ -227,7 +227,7 @@ final public class LwjglInput implements Input {
 	public boolean isAccelerometerAvailable () {
 		return false;
 	}
-	
+
 	public boolean isGyroscopeAvailable () {
 		return false;
 	}
@@ -305,13 +305,13 @@ final public class LwjglInput implements Input {
 	@Override
 	public boolean isCatchBackKey () {
 		return false;
-	}	
+	}
 
 	@Override
 	public void setCatchMenuKey (boolean catchMenu) {
-		
+
 	}
-	
+
 	@Override
 	public boolean isCatchMenuKey () {
 		return false;
@@ -327,7 +327,7 @@ final public class LwjglInput implements Input {
 		return false;
 	}
 
-	void processEvents () {
+	protected void processEvents () {
 		synchronized (this) {
 			if (processor != null) {
 				InputProcessor processor = this.processor;
